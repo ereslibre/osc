@@ -987,7 +987,6 @@ def main(apiurl, opts, argv):
                             os.link(path + "/" + filename, tffn)
                         else:
                             os.symlink(path + "/" + filename, tffn)
-        # Is a obsrepositories tag used?
         try:
             tree = ET.parse(build_descr)
         except:
@@ -995,11 +994,6 @@ def main(apiurl, opts, argv):
             print(open(build_descr).read(), file=sys.stderr)
             sys.exit(1)
         root = tree.getroot()
-        # product
-        for xml in root.findall('instsource'):
-            if xml.find('instrepo').find('source').get('path') == 'obsrepositories:/':
-                print("obsrepositories:/ for product builds is not yet supported in osc!")
-                sys.exit(1)
         # appliance
         expand_obsrepos=None
         for xml in root.findall('repository'):
